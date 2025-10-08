@@ -8,7 +8,7 @@ public abstract class Conta {
         this.cliente = cliente;
     }
 
-    public abstract void depositar();
-    public abstract void sacar();
+    public abstract void depositar(double valor);
+    public abstract void sacar(int numero, double valor);
     public abstract void transferir();
 }

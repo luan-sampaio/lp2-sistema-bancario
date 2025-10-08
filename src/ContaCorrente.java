@@ -3,13 +3,13 @@ public class ContaCorrente extends Conta{
         super(numero, nome);
     }
     @Override
-    public void depositar() {
-
+    public void depositar(double valor) {
+        this.saldo = valor;
     }
 
     @Override
-    public void sacar() {
-
+    public void sacar(int numero, double valor) {
+        //Conta operacao =
     }
 
     @Override

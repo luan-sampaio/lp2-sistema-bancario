@@ -1,8 +1,10 @@
 import java.util.Scanner;
 import java.util.InputMismatchException;
 import java.util.ArrayList;
+import java.util.SortedMap;
 
 // TODO: Transformar o try e catch em função para reaproveitar
+// TODO: GERAR RECIBO DAS CONTAS CRIADAS!
 
 public class Main {
     public static void main(String[] args) {
@@ -27,23 +29,23 @@ public class Main {
 
             switch (opcao) {
                 case 1:
-                    criarConta(numeroDeConta, listaDeConta);
+                    criarConta(numeroDeConta, listaDeConta, scanner);
                     ++numeroDeConta;
                     break;
                 case 2:
-                    System.out.println("Implementar");
+                    depositar(listaDeConta, scanner);
                     break;
                 case 3:
-                    System.out.println("Implementar");
+                    System.out.println("Realizar saque!");
                     break;
                 case 4:
-                    System.out.println("Implementar");
+                    System.out.println("Realizar Transferência");
                     break;
                 case 5:
                     listarContas(listaDeConta);
                     break;
                 case 6:
-                    System.out.println("Implementar");
+                    System.out.println("Calcular Total de Tributos");
                     break;
                 case 7:
                     imprimirSaida();
@@ -83,10 +85,9 @@ public class Main {
         System.out.println("========================================\n");
     }
 
-    public static void criarConta(int numero, ArrayList<Conta> lista) {
+    public static void criarConta(int numero, ArrayList<Conta> lista, Scanner scanner) {
         System.out.print("Insira o nome do cliente: ");
 
-        Scanner scanner = new Scanner(System.in);
         String nome = scanner.nextLine();
 
         System.out.println("\nEscolha a conta ser criada: ");
@@ -111,11 +112,37 @@ public class Main {
         }
     }
 
+    public static void imprimirConta() {
+        System.out.println("\n========================================");
+        System.out.println("Conta ");
+        System.out.println("========================================");
+        System.out.println("Pedido N°: ");
+        System.out.println("Cliente: " );
+        System.out.println("----------------------------------------");
+        System.out.println("Itens:");
+
+        // O valor total deve ser calculado
+        System.out.println("Total: R$ ");
+        System.out.println("========================================");
+    }
+
+    public static void depositar(ArrayList<Conta> lista, Scanner scanner) {
+        System.out.print("Insira o número da conta: ");
+        int numero = scanner.nextInt();
+        //--numero;
+        Conta operacao = lista.get(numero);
+
+        System.out.print("Insira o valor a ser depositado: ");
+        double valor = scanner.nextDouble();
+        operacao.depositar(valor);
+    }
+
+    //public static void saque()
+
     public static void listarContas(ArrayList<Conta> lista) {
         for (Conta conta : lista) {
             System.out.println(conta.cliente);
         }
     }
-
 
 }
