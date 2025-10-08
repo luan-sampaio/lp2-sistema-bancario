@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class Main {
     public static void main(String[] args) {
@@ -9,7 +10,15 @@ public class Main {
 
         while (executando) {
             imprimirMenu();
-            int opcao = scanner.nextInt();
+
+            int opcao = -1;
+            try {
+                opcao = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("\nOpção inválida! Digite um número.");
+                scanner.nextLine();
+                continue;
+            }
 
             switch (opcao) {
                 case 1:
