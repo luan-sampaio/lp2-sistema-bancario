@@ -39,7 +39,7 @@ public class SistemaBancario {
                     depositar(listaDeConta, scanner);
                     break;
                 case 3:
-                    System.out.println("Realizar saque!");
+                    saque(listaDeConta, scanner);
                     break;
                 case 4:
                     System.out.println("Realizar Transferência");
@@ -116,7 +116,9 @@ public class SistemaBancario {
         Conta operacao = lista.get(numero);
         System.out.print("Insira o valor a ser sacado: ");
         double valor = scanner.nextDouble();
-
+        operacao.sacar(valor);
+        // TODO: MENSAGEM DE SAQUE
     }
+
 }
 
