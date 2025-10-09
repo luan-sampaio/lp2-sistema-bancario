@@ -9,7 +9,7 @@ public class SistemaBancario {
     public SistemaBancario () {}
 
     public void executar() {
-        ArrayList<Conta> listaDeConta = new ArrayList<Conta>();
+        ArrayList<Conta> listaDeConta = new ArrayList<>();
         int numeroDeConta = 0;
 
         InterfaceBanco interfaceBanco = new InterfaceBanco();
@@ -20,7 +20,7 @@ public class SistemaBancario {
         while (executando) {
             interfaceBanco.imprimirMenu();
 
-            int opcao = -1;
+            int opcao;
             try {
                 opcao = scanner.nextInt();
             } catch (InputMismatchException e) {
@@ -31,7 +31,7 @@ public class SistemaBancario {
 
             switch (opcao) {
                 case 1:
-                    criarConta(numeroDeConta, listaDeConta, scanner);
+                    criarConta(numeroDeConta, listaDeConta, scanner, interfaceBanco);
                     ++numeroDeConta;
                     break;
                 case 2:
@@ -61,45 +61,28 @@ public class SistemaBancario {
         scanner.close();
     }
 
-    private void criarConta(int numero, ArrayList<Conta> lista, Scanner scanner) {
-        System.out.print("Insira o nome do cliente: ");
+    private void criarConta(int numero, ArrayList<Conta> lista, Scanner scanner, InterfaceBanco outup) {
+        System.out.print("\nInsira o nome do cliente: ");
+        String nome = scanner.next();
 
-        String nome = scanner.nextLine();
-
-        System.out.println("\nEscolha a conta ser criada: ");
-        System.out.println("1 - Conta Corrente");
-        System.out.println("2 - Conta Poupança");
-        System.out.print("Digite o numero da operação desejada: ");
-
+        outup.imprimirCriarConta();
         int operacao = scanner.nextInt();
 
         switch (operacao) {
             case 1:
                 ContaCorrente corrente = new ContaCorrente(numero, nome);
                 lista.add(corrente);
+                outup.imprimirComprovante("Corrente", nome, numero);
                 break;
             case 2:
                 ContaPoupanca poupanca = new ContaPoupanca(numero, nome);
                 lista.add(poupanca);
+                outup.imprimirComprovante("Poupança", nome, numero);
                 break;
             default:
                 System.out.println("Operação inválida! Opção inexistente.");
                 break;
         }
-    }
-
-    private static void imprimirConta() {
-        System.out.println("\n========================================");
-        System.out.println("Conta ");
-        System.out.println("========================================");
-        System.out.println("Pedido N°: ");
-        System.out.println("Cliente: " );
-        System.out.println("----------------------------------------");
-        System.out.println("Itens:");
-
-        // O valor total deve ser calculado
-        System.out.println("Total: R$ ");
-        System.out.println("========================================");
     }
 
     private void depositar(ArrayList<Conta> lista, Scanner scanner) {
@@ -113,9 +96,9 @@ public class SistemaBancario {
         operacao.depositar(valor);
     }
 
-    private static void listarContas(ArrayList<Conta> lista) {
+    private void listarContas(ArrayList<Conta> lista) {
         for (Conta conta : lista) {
-            System.out.println(conta.cliente);
+            System.out.println(conta.getNome());
         }
     }
 }
