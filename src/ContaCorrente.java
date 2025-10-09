@@ -1,4 +1,4 @@
-public class ContaCorrente extends Conta{
+public class ContaCorrente extends Conta implements ITributavel {
     public ContaCorrente(int numero, String nome) {
         super(numero, nome);
     }
@@ -13,6 +13,11 @@ public class ContaCorrente extends Conta{
             this.setSaldo(novoSaldo);
             return true;
         }
+    }
+
+    @Override
+     public double calcularTributos() {
+        return this.getSaldo() * 0.01;
     }
 
 }

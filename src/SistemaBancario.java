@@ -50,7 +50,7 @@ public class SistemaBancario {
                     listarContas(listaDeConta);
                     break;
                 case 6:
-                    System.out.println("Calcular Total de Tributos");
+                    calcularTotalDeTributos(listaDeConta);
                     break;
                 case 7:
                     interfaceBanco.imprimirSaida();
@@ -144,6 +144,21 @@ public class SistemaBancario {
         Conta contaDestino = lista.get(idContaDestino);
 
         contaOrigem.transferir(valorTransferencia, contaDestino);
+    }
+
+    private void calcularTotalDeTributos(ArrayList<Conta> lista) {
+        double tributosTotal = 0;
+        for (Conta conta : lista) {
+            if (conta instanceof ITributavel) {
+                ITributavel contaTributavel = (ITributavel) conta;
+                tributosTotal += contaTributavel.calcularTributos();
+            }
+        }
+
+        System.out.println("\n========================================");
+        System.out.println("Total de tributos a recolher: R$ " + tributosTotal);
+        System.out.println("========================================");
+
     }
 }
 
