@@ -135,11 +135,15 @@ public class SistemaBancario {
         --idContaOrigem;
         System.out.print("Insira o número da conta de destino: ");
         int idContaDestino = scanner.nextInt();
+        --idContaDestino;
         System.out.println("Insira o valor de transferência: ");
         double valorTransferencia = scanner.nextDouble();
 
-        Conta operacao = lista.get(idContaOrigem);
-        operacao.transferir(idContaDestino, valorTransferencia);
+
+        Conta contaOrigem = lista.get(idContaOrigem);
+        Conta contaDestino = lista.get(idContaDestino);
+
+        contaOrigem.transferir(valorTransferencia, contaDestino);
     }
 }
 

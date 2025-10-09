@@ -24,9 +24,10 @@ public abstract class Conta {
         this.setSaldo(valor);
     }
 
-    public void transferir(int idDestino, double valor) {
+    public void transferir(double valor, Conta destino) {
         if (this.sacar(valor)) {
-            
+            double novoSaldo = valor + destino.getSaldo();
+            destino.setSaldo(novoSaldo);
         } else {
             System.out.println("Saldo Insuficiente!");
         }
