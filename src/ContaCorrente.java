@@ -4,7 +4,7 @@ public class ContaCorrente extends Conta{
     }
     @Override
     public void depositar(double valor) {
-        this.saldo = valor;
+        this.setSaldo(valor);
     }
 
     @Override

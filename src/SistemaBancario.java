@@ -31,6 +31,7 @@ public class SistemaBancario {
 
             switch (opcao) {
                 case 1:
+                    interfaceBanco.limparTela();
                     criarConta(numeroDeConta, listaDeConta, scanner, interfaceBanco);
                     ++numeroDeConta;
                     break;

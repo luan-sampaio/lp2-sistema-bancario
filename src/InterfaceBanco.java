@@ -42,4 +42,9 @@ public class InterfaceBanco {
         System.out.println("2 - Conta Poupança");
         System.out.print("Digite o numero da operação desejada: ");
     }
+
+    public void limparTela() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
 }
