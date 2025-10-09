@@ -1,5 +1,7 @@
 // TODO: Transformar o try e catch em função para reaproveitar
 // TODO: GERAR RECIBO DAS CONTAS CRIADAS!
+// TODO: CRIAR UMA FUNÇÃO DE APETAR ESPAÇO PARA avançar 
+// todo: um enter para depois de escolher a opção seria válido em, para não ir avulso
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
@@ -116,13 +118,21 @@ public class SistemaBancario {
         Conta operacao = lista.get(numero);
         System.out.print("Insira o valor a ser sacado: ");
         double valor = scanner.nextDouble();
-        operacao.sacar(valor);
-        // TODO: MENSAGEM DE SAQUE
+        
+        // Isso pode virar interface
+        if (operacao.sacar(valor)) {
+            // TODO: MENSAGEM DE SAQUE
+            System.out.println("Sacou com sucesso");
+        } else {
+            System.out.println("Saldo Insuficiente!");
+
+        }
     }
 
     private void transferencia(ArrayList<Conta> lista, Scanner scanner) {
         System.out.print("Insira o número da conta de origem: ");
         int idContaOrigem = scanner.nextInt();
+        --idContaOrigem;
         System.out.print("Insira o número da conta de destino: ");
         int idContaDestino = scanner.nextInt();
         System.out.println("Insira o valor de transferência: ");

@@ -4,13 +4,14 @@ public class ContaCorrente extends Conta{
     }
 
     @Override
-    public void sacar(double valor) {
+    public boolean sacar(double valor) {
         valor += valor * 0.05;
         if (valor  > this.getSaldo()) {
-            System.out.println("Saldo Insuficiente!");
+            return false;
         } else {
             double novoSaldo = this.getSaldo() - valor;
             this.setSaldo(novoSaldo);
+            return true;
         }
     }
 

@@ -25,8 +25,12 @@ public abstract class Conta {
     }
 
     public void transferir(int idDestino, double valor) {
-        this.sacar(valor);
+        if (this.sacar(valor)) {
+            
+        } else {
+            System.out.println("Saldo Insuficiente!");
+        }
     }
 
-    public abstract void sacar(double valor);
+    public abstract boolean sacar(double valor);
 }
