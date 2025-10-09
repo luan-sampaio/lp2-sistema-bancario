@@ -52,7 +52,6 @@ public class SistemaBancario {
                     break;
                 case 7:
                     interfaceBanco.imprimirSaida();
-                    //imprimirSaida();
                     executando = false;
                     break;
                 default:
@@ -88,19 +87,36 @@ public class SistemaBancario {
 
     private void depositar(ArrayList<Conta> lista, Scanner scanner) {
         System.out.print("Insira o número da conta: ");
+        // TODO: AQUI NO CASO DE DIGITAR OUTRA COISA QUE NÃO NÚMERO
         int numero = scanner.nextInt();
-        //--numero;
+        --numero;
+        // TODO: PRECISO DE UM TRY CATCH AQUI TAMBÉM
         Conta operacao = lista.get(numero);
 
         System.out.print("Insira o valor a ser depositado: ");
         double valor = scanner.nextDouble();
         operacao.depositar(valor);
+        // TODO: FAZER UMA MENSAGEM DE SUCESSO!
+        System.out.println("Valor da conta: " + lista.get(numero).getSaldo());
     }
 
     private void listarContas(ArrayList<Conta> lista) {
         for (Conta conta : lista) {
             System.out.println(conta.getNome());
+            System.out.println(conta.getSaldo());
         }
+    }
+
+    private void saque(ArrayList<Conta> lista, Scanner scanner) {
+        System.out.print("Insira o número da conta: ");
+        // TODO: AQUI NO CASO DE DIGITAR OUTRA COISA QUE NÃO NÚMERO
+        int numero = scanner.nextInt();
+        --numero;
+        // TODO: PRECISO DE UM TRY CATCH AQUI TAMBÉM
+        Conta operacao = lista.get(numero);
+        System.out.print("Insira o valor a ser sacado: ");
+        double valor = scanner.nextDouble();
+
     }
 }
 

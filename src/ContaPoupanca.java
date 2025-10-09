@@ -4,13 +4,13 @@ public class ContaPoupanca extends Conta{
     }
 
     @Override
-    public void depositar(double valor) {
-        this.setSaldo(valor);
-    }
-
-    @Override
-    public void sacar(int numero, double valor) {
-
+    public void sacar(double valor) {
+        if (valor  > this.getSaldo()) {
+            System.out.println("Saldo Insuficiente!");
+        } else {
+            double novoSaldo = this.getSaldo() - valor;
+            this.setSaldo(novoSaldo);
+        }
     }
 
     @Override

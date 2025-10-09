@@ -1,7 +1,7 @@
 public abstract class Conta {
     private int numero;
     private String cliente;
-    private double saldo;
+    private double saldo = 0;
 
     public Conta(int numero, String cliente) {
         this.numero = numero;
@@ -16,7 +16,13 @@ public abstract class Conta {
         this.saldo = valor;
     }
 
-    public abstract void depositar(double valor);
-    public abstract void sacar(int numero, double valor);
+    public double getSaldo() {
+        return saldo;
+    }
+
+    public void depositar(double valor) {
+        this.setSaldo(valor);
+    }
+    public abstract void sacar(double valor);
     public abstract void transferir();
 }
