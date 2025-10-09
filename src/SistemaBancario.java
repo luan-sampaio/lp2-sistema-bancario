@@ -42,7 +42,7 @@ public class SistemaBancario {
                     saque(listaDeConta, scanner);
                     break;
                 case 4:
-                    System.out.println("Realizar Transferência");
+                    transferencia(listaDeConta, scanner);
                     break;
                 case 5:
                     listarContas(listaDeConta);
@@ -120,5 +120,16 @@ public class SistemaBancario {
         // TODO: MENSAGEM DE SAQUE
     }
 
+    private void transferencia(ArrayList<Conta> lista, Scanner scanner) {
+        System.out.print("Insira o número da conta de origem: ");
+        int idContaOrigem = scanner.nextInt();
+        System.out.print("Insira o número da conta de destino: ");
+        int idContaDestino = scanner.nextInt();
+        System.out.println("Insira o valor de transferência: ");
+        double valorTransferencia = scanner.nextDouble();
+
+        Conta operacao = lista.get(idContaOrigem);
+        operacao.transferir(idContaDestino, valorTransferencia);
+    }
 }
 

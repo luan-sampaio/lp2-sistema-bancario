@@ -23,6 +23,10 @@ public abstract class Conta {
     public void depositar(double valor) {
         this.setSaldo(valor);
     }
+
+    public void transferir(int idDestino, double valor) {
+        this.sacar(valor);
+    }
+
     public abstract void sacar(double valor);
-    public abstract void transferir();
 }
