@@ -16,35 +16,27 @@ public class SistemaBancario {
 
         InterfaceBanco interfaceBanco = new InterfaceBanco();
         Scanner scanner = new Scanner(System.in);
+
         interfaceBanco.imprimirInicial();
 
         boolean executando = true;
         while (executando) {
             interfaceBanco.imprimirMenu();
 
-            int opcao;
-            try {
-                opcao = scanner.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("\nOpção inválida! Digite um número.");
-                scanner.nextLine();
-                continue;
-            }
-
+            int opcao = testarInput(scanner);
             switch (opcao) {
                 case 1:
-                    interfaceBanco.limparTela();
                     criarConta(numeroDeConta, listaDeConta, scanner, interfaceBanco);
                     ++numeroDeConta;
                     break;
                 case 2:
-                    depositar(listaDeConta, scanner);
+                    depositar(listaDeConta, scanner, interfaceBanco);
                     break;
                 case 3:
-                    saque(listaDeConta, scanner);
+                    saque(listaDeConta, scanner, interfaceBanco);
                     break;
                 case 4:
-                    transferencia(listaDeConta, scanner);
+                    transferencia(listaDeConta, scanner, interfaceBanco);
                     break;
                 case 5:
                     listarContas(listaDeConta);
@@ -57,10 +49,21 @@ public class SistemaBancario {
                     executando = false;
                     break;
                 default:
-                    System.out.println("Opção inválida! Escolha novamente.");
+                    System.out.println("\nOpção inválida! Escolha novamente.\n");
             }
         }
         scanner.close();
+    }
+
+    private int testarInput(Scanner scanner) {
+        int opcao = 0;
+        try {
+            opcao = scanner.nextInt();
+        } catch (InputMismatchException e) {
+            scanner.nextLine();
+        }
+
+        return opcao;
     }
 
     private void criarConta(int numero, ArrayList<Conta> lista, Scanner scanner, InterfaceBanco outup) {
@@ -68,7 +71,7 @@ public class SistemaBancario {
         String nome = scanner.next();
 
         outup.imprimirCriarConta();
-        int operacao = scanner.nextInt();
+        int operacao = testarInput(scanner);
 
         switch (operacao) {
             case 1:
@@ -82,61 +85,59 @@ public class SistemaBancario {
                 outup.imprimirComprovante("Poupança", nome, numero);
                 break;
             default:
-                System.out.println("Operação inválida! Opção inexistente.");
+                System.out.println("\nOperação inválida! Reinice o processo!\n");
                 break;
         }
     }
 
-    private void depositar(ArrayList<Conta> lista, Scanner scanner) {
-        System.out.print("Insira o número da conta: ");
-        // TODO: AQUI NO CASO DE DIGITAR OUTRA COISA QUE NÃO NÚMERO
+    private void depositar(ArrayList<Conta> lista, Scanner scanner, InterfaceBanco outup) {
+        System.out.print("\nInsira o número da conta: ");
         int numero = scanner.nextInt();
         --numero;
-        // TODO: PRECISO DE UM TRY CATCH AQUI TAMBÉM
+
         Conta operacao = lista.get(numero);
 
-        System.out.print("Insira o valor a ser depositado: ");
+        System.out.print("\nInsira o valor a ser depositado: ");
         double valor = scanner.nextDouble();
         operacao.depositar(valor);
-        // TODO: FAZER UMA MENSAGEM DE SUCESSO!
-        System.out.println("Valor da conta: " + lista.get(numero).getSaldo());
+        outup.comprovanteDeposito(valor, ++numero);
     }
 
     private void listarContas(ArrayList<Conta> lista) {
         for (Conta conta : lista) {
-            System.out.println(conta.getNome());
-            System.out.println(conta.getSaldo());
+            System.out.println("\n========================================");
+            System.out.println("Conta N°: " + (conta.getId() + 1));
+            System.out.println("Cliente: " + conta.getNome());
+            System.out.println("Saldo: " + conta.getSaldo());
+            if (conta instanceof ContaCorrente) {
+                System.out.println("Tipo de conta: Corrente");
+            } else {
+                System.out.println("Tipo de conta: Poupança");
+            }
+            System.out.println("========================================\n");
         }
     }
 
-    private void saque(ArrayList<Conta> lista, Scanner scanner) {
-        System.out.print("Insira o número da conta: ");
-        // TODO: AQUI NO CASO DE DIGITAR OUTRA COISA QUE NÃO NÚMERO
+    private void saque(ArrayList<Conta> lista, Scanner scanner, InterfaceBanco output) {
+        System.out.print("\nInsira o número da conta: ");
         int numero = scanner.nextInt();
         --numero;
-        // TODO: PRECISO DE UM TRY CATCH AQUI TAMBÉM
         Conta operacao = lista.get(numero);
         System.out.print("Insira o valor a ser sacado: ");
         double valor = scanner.nextDouble();
-        
-        // Isso pode virar interface
-        if (operacao.sacar(valor)) {
-            // TODO: MENSAGEM DE SAQUE
-            System.out.println("Sacou com sucesso");
-        } else {
-            System.out.println("Saldo Insuficiente!");
 
-        }
+        boolean realizarSaque = operacao.sacar(valor);
+        output.comprovanteSaque(valor, realizarSaque, numero);
     }
 
-    private void transferencia(ArrayList<Conta> lista, Scanner scanner) {
-        System.out.print("Insira o número da conta de origem: ");
+    private void transferencia(ArrayList<Conta> lista, Scanner scanner, InterfaceBanco output) {
+        System.out.print("\nInsira o número da conta de origem: ");
         int idContaOrigem = scanner.nextInt();
         --idContaOrigem;
-        System.out.print("Insira o número da conta de destino: ");
+        System.out.print("\nInsira o número da conta de destino: ");
         int idContaDestino = scanner.nextInt();
         --idContaDestino;
-        System.out.println("Insira o valor de transferência: ");
+        System.out.print("\nInsira o valor de transferência: ");
         double valorTransferencia = scanner.nextDouble();
 
 
@@ -144,6 +145,7 @@ public class SistemaBancario {
         Conta contaDestino = lista.get(idContaDestino);
 
         contaOrigem.transferir(valorTransferencia, contaDestino);
+        output.comprovanteTransferencia(idContaOrigem, idContaDestino, valorTransferencia);
     }
 
     private void calcularTotalDeTributos(ArrayList<Conta> lista) {

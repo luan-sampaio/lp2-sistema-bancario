@@ -8,6 +8,10 @@ public abstract class Conta {
         this.cliente = cliente;
     }
 
+    public int getId() {
+        return numero;
+    }
+
     public String getNome() {
         return cliente;
     }

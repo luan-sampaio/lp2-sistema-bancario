@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class InterfaceBanco {
     public InterfaceBanco () {}
 
@@ -10,6 +12,7 @@ public class InterfaceBanco {
     public void imprimirMenu() {
         System.out.println();
         System.out.println("Operações disponíveis:");
+        System.out.println();
         System.out.println("1 - Criar Conta ");
         System.out.println("2 - Realizar Depósito");
         System.out.println("3 - Realizar Saque");
@@ -37,14 +40,40 @@ public class InterfaceBanco {
     }
 
     public void imprimirCriarConta() {
-        System.out.println("\nEscolha a conta ser criada: ");
+        System.out.println("\nEscolha a conta ser criada: \n");
         System.out.println("1 - Conta Corrente");
-        System.out.println("2 - Conta Poupança");
+        System.out.println("2 - Conta Poupança\n");
         System.out.print("Digite o numero da operação desejada: ");
     }
 
-    public void limparTela() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+    public void comprovanteDeposito(double valor, int idConta) {
+        System.out.println("\n========================================");
+        System.out.println("Depósito realizado com sucesso!\n");
+        System.out.println("Valor depositado: " + valor);
+        System.out.println("Na conta de número " + idConta);
+        System.out.println("========================================\n");
+    }
+
+    public void comprovanteSaque(double valor, boolean saque, int id) {
+        if (saque) {
+            System.out.println("\n========================================");
+            System.out.println("Saque realizado com sucesso!\n");
+            System.out.println("Valor sacado: " + valor);
+            System.out.println("Na conta de número " + (id + 1));
+            System.out.println("========================================\n");
+        } else {
+            System.out.println("\n========================================");
+            System.out.println("Saldo Insuficiente!!");
+            System.out.println("========================================\n");
+        }
+    }
+
+    public void comprovanteTransferencia(int idOrigem, int idDestino, double valor) {
+        System.out.println("\n========================================");
+        System.out.println("Transferência realizada com sucesso!\n");
+        System.out.println("Valor transferido: " + valor);
+        System.out.println("Da conta de número " + (idOrigem + 1));
+        System.out.println("Para conta de número " + (idDestino + 1));
+        System.out.println("========================================\n");
     }
 }
