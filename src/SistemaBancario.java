@@ -1,8 +1,3 @@
-// TODO: Transformar o try e catch em função para reaproveitar
-// TODO: GERAR RECIBO DAS CONTAS CRIADAS!
-// TODO: CRIAR UMA FUNÇÃO DE APETAR ESPAÇO PARA avançar 
-// todo: um enter para depois de escolher a opção seria válido em, para não ir avulso
-
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;

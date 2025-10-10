@@ -4,4 +4,3 @@ public class Main {
         sistemaBancario.executar();
     }
 }
-
