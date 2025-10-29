@@ -14,7 +14,7 @@ class ContaCorrenteTest {
     @Test
     void testCriacaoContaCorrente() {
         assertNotNull(conta);
-        assertEquals("001", conta.getId());
+        assertEquals(001, conta.getId());
         assertEquals("Joao", conta.getNome());
         assertEquals(0.0, conta.getSaldo()); //saldo inicial = 0
     }
